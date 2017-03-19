@@ -16,7 +16,7 @@ namespace SampleDatasourceExtensions
         private Guid _tableObjectType = new Guid("CFE1653E-E2F7-4713-BFBE-311E8BD484D3");
         private Guid _serviceObjectType = new Guid("498B7D35-5D05-4728-B07A-DD5C7B7DF083");
 
-        // The identity is used for registering the action within Infiniti. The id and the name needs
+        // The identity is used for registering the data source within Infiniti. The id and the name needs
         // to be unique and the name is displayed to the user in Manage.
         public override ExtensionIdentity ExtensionIdentity { get; protected set; }
             = new ExtensionIdentity()
