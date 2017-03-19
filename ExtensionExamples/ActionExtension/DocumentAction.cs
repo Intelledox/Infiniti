@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace SampleActionExtensions
 {
     /// <summary>
-    /// This sample demonstrates dealing within generated documents that have been sent into the action.
+    /// This sample demonstrates accessing and working with generated document binaries within an action.
+    /// The project’s administrator configures which document(s) should generated at the end of each workflow step and the final submission of the form.
     /// </summary>
     public class DocumentAction : ActionConnector
     {
