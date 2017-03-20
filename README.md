@@ -3,7 +3,8 @@ This repository contains examples for [Intelledox Infiniti](http://intelledox.co
 
 Directory | Description
 --------- | -----------
-[Extension Examples](ExtensionExamples)  | A collection of sample code that help you learn and explore Infiniti extensions
+[Extension Examples](ExtensionExamples)  | A collection of sample code that helps you learn and explore Infiniti extensions.
+[API Examples](ApiExamples)  | A collection of sample API client code that helps demonstrate calling Infiniti REST services.
 
 ## Resources
 
