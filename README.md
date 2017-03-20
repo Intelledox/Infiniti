@@ -1,5 +1,9 @@
-##Infiniti Samples
+## Infiniti Samples
 This repository contains examples for [Intelledox Infiniti](http://intelledox.com).
+
+Directory | Description
+--------- | -----------
+[Extension Examples](ExtensionExamples)  | A collection of sample code that help you learn and explore Infiniti extensions
 
 ## Resources
 
