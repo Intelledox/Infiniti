@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HierarchicalDatasource.cs" />
+    <Compile Include="FilteringDatasource.cs" />
     <Compile Include="SimpleDatasource.cs" />
   </ItemGroup>
   <ItemGroup>
