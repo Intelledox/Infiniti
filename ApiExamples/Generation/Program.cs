@@ -12,7 +12,7 @@ namespace Generation
         private static string _projectGroupGuid = "f88d902f-3023-4586-b589-28356ec5925e";   // Publish id of the form. Retrieve from Manage
         private static string _demoUsername = "DemoUser";                                   // User that the generation will run as
         private static string _demoPassword = "<DemoPasswordHere>";
-        
+
         static void Main(string[] args)
         {
             Task.Run(async () => await MainAsync(args)).GetAwaiter().GetResult();
@@ -51,7 +51,7 @@ namespace Generation
             authResponse.EnsureSuccessStatusCode();
             JObject token = JObject.Parse(await authResponse.Content.ReadAsStringAsync());
 
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token["AuthorizationToken"].ToString());
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token["authorizationToken"].ToString());
 
             return client;
         }
