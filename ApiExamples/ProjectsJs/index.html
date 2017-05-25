@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Projects API Sample</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" type="text/javascript"></script>
+</head>
+<body>
+    <p>API Url: <input id="apiurl" value="https://server/produce/api/v1/client" /></p>
+    <p>User name: <input id="username" /></p>
+    <p>Password: <input id="password" /></p>
+    <button id="login">Login</button>
+
+    <ul id="folders"></ul>
+
+    <script type="text/javascript">
+        document.getElementById("login").addEventListener("click", function () {
+            // This example is using forms authentication
+            var loginData = {
+                "userName": document.getElementById("username").value,
+                "password": document.getElementById("password").value
+            };
+
+            // Step 1: Login to get an access token for subsequent calls
+            $.ajax({
+                url: document.getElementById("apiurl").value + "/login/forms",
+                xhrFields: { withCredentials: true },
+                type: "POST",
+                data: JSON.stringify(loginData),
+                dataType: "json",
+                contentType: "application/json"
+            }).done(function (data) {
+                // Step 2: Call the API endpoint that you wish to get data from
+                //         providing the authorization token retrieved from step 1
+
+                $.ajax({
+                    url: document.getElementById("apiurl").value + "/forms",
+                    xhrFields: { withCredentials: true },
+                    type: "GET",
+                    contentType: "application/json",
+                    headers: { "authorization": "Bearer " + data.AuthorizationToken }
+                }).done(function (data) {
+                    // Build a nested list of folders and projects
+                    $.each(data.folders, function (i, e) {
+                        var folderItem = $("<li />");
+                        folderItem.text(e.name);
+
+                        var projectList = $("<ul />");
+
+                        $.each(e.forms, function (i, e) {
+                            var projectItem = $("<li />");
+                            projectItem.text(e.name);
+                            projectList.append(projectItem);
+                        });
+
+                        folderItem.append(projectList);
+                        $("#folders").append(folderItem);
+                    });
+                });
+
+            }).fail(function (event, textStatus) {
+                alert("failed");
+                console.log(event);
+            });
+        });
+    </script>
+</body>
+</html>
