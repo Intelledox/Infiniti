@@ -25,7 +25,7 @@ namespace SampleCustomQuestionExtensions
                 Name = "Infiniti Simple Custom Question Extension"
             };
 
-        public override List<AvailableOutput> GetAvailableOuputs()
+        public override List<AvailableOutput> GetAvailableOutputs()
         {
             return new List<AvailableOutput>()
             {

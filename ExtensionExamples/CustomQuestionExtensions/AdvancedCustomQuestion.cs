@@ -45,7 +45,7 @@ namespace SampleCustomQuestionExtensions
             };
         }
 
-        public override List<AvailableOutput> GetAvailableOuputs()
+        public override List<AvailableOutput> GetAvailableOutputs()
         {
             return new List<AvailableOutput>()
             {
