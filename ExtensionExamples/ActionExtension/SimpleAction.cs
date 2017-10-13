@@ -15,7 +15,7 @@ namespace SampleActionExtensions
         public override ExtensionIdentity ExtensionIdentity { get; protected set; }
             = new ExtensionIdentity()
             {
-                Id = new Guid("94773256-9A6C-4281-B2C6-6F854DA076AB"),
+                Id = new Guid("F2B5F504-D3E4-44F2-B978-AC33FA43F038"),
                 Name = "Infiniti Simple Action Extension"
             };
 
