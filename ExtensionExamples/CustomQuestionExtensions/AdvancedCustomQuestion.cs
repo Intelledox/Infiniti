@@ -25,7 +25,7 @@ namespace SampleCustomQuestionExtensions
             = new ExtensionIdentity()
             {
                 Id = new Guid("63E9819F-5B09-4CF1-BE6F-416088484247"),
-                Name = "Infiniti Advanced Custom Question Extension"
+                Name = "Advanced Question"
             };
 
         public override List<AvailableInput> GetAvailableInputs()
@@ -146,7 +146,6 @@ namespace SampleCustomQuestionExtensions
         {
             if (props.ContainsAttribute(_valueGuid))
             {
-                // Implementation detail - Encrypt value before adding to the answer file
                 answerFileNode.Add(new System.Xml.Linq.XAttribute(_valueGuid.ToString(), props.GetAttributeString(_valueGuid)));
             }
         }
@@ -155,9 +154,8 @@ namespace SampleCustomQuestionExtensions
         {
             foreach (System.Xml.Linq.XAttribute xmlAttribute in answerFileNode.Attributes())
             {
-                if (string.Equals(xmlAttribute.Name.ToString(), _valueGuid.ToString() ,StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(xmlAttribute.Name.ToString(), _valueGuid.ToString(), StringComparison.OrdinalIgnoreCase))
                 {
-                    // Implementation detail - Decrypt value from the answer file
                     string savedValue = xmlAttribute.Value;
                     if (savedValue != props.GetAttributeString(_valueGuid))
                     {

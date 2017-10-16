@@ -22,7 +22,7 @@ namespace SampleCustomQuestionExtensions
             = new ExtensionIdentity()
             {
                 Id = new Guid("E7213603-044E-419B-B00E-92205B378E74"),
-                Name = "Infiniti Simple Custom Question Extension"
+                Name = "Simple Question"
             };
 
         public override List<AvailableOutput> GetAvailableOutputs()

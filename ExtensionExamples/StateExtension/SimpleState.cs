@@ -27,6 +27,7 @@ namespace SampleStateExtensions
         {
             // Called each time the user navigates to a different page in the form. Either
             // forwards or backwards
+            File.WriteAllText(@"c:\Temp\" + properties.Context.Wizard.WizardSession.Variables.RunId + ".xml", properties.GetAnswerFile());
         }
 
         public override bool UseStandardSave(StateProperties properties)

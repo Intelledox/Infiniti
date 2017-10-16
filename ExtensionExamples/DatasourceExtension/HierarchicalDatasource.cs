@@ -18,7 +18,7 @@ namespace SampleDatasourceExtensions
                 Id = new Guid("C657EB87-D974-496D-BC8C-EA046FA60F58"),
                 Name = "Infiniti Hierarchical Data Source Extension"
             };
-        
+
         public override Task<DataTable> GetSchemaAsync(string connectionString, Query query, DataFilter criteria, Authentication auth, DatasourceProperties properties)
         {
             // Schema requires all of the available fields be returned in a flattened structure. All levels are added
@@ -57,7 +57,7 @@ namespace SampleDatasourceExtensions
                 nestedData.Rows.Add(currentNestedRow);
 
 
-                currentRow["ColumnNested"] = currentNestedRow;
+                currentRow["ColumnNested"] = nestedData;
                 data.Rows.Add(currentRow);
             }
             data.EndLoadData();

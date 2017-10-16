@@ -106,7 +106,7 @@ namespace SampleActionExtensions
                     }
                 }
             };
-            
+
             return Task.FromResult(result);
         }
 

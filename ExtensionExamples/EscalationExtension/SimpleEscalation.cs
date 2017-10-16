@@ -18,11 +18,13 @@ namespace SampleEscalationExtension
             };
 
         // Main entry point in the escalation where it will perform its custom operations
-        public override Task RunAsync(EscalationProperties properties)
+        public override async Task RunAsync(EscalationProperties properties)
         {
             // Implement custom escalation details here. Send notifications, update services, etc
-
-            return Task.FromResult(0);
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\temp\HelloWorld.txt", true))
+            {
+                await file.WriteLineAsync(DateTime.Now.ToString());
+            }
         }
 
         // Defines whether or not this escalation is allowed run multiple times for a particular project

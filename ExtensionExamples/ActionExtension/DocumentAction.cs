@@ -30,12 +30,15 @@ namespace SampleActionExtensions
             {
                 foreach (var doc in properties.Documents)
                 {
+                    string fileName = properties.JobGuid.ToString() + " - " +
+                        doc.DisplayName + doc.Extension;
+
                     using (var docStream = await properties.GetDocumentStreamAsync(doc))
-                    using (var destStream = new MemoryStream())
+                    // Write or send the document to a file, external service, etc
+                    using (FileStream file = new FileStream(Path.Combine("C:\\temp\\", fileName), FileMode.Create, FileAccess.Write))
                     {
-                        // Write or send the document to a file, external service, etc
-                        await docStream.CopyToAsync(destStream);
-                    }
+                        await docStream.CopyToAsync(file);
+                    }                    
                 }
             }
             catch (Exception ex)
@@ -46,7 +49,6 @@ namespace SampleActionExtensions
 
             return results;
         }
-
         public override bool SupportsRun() => true;
 
         public override bool SupportsUI() => false;
