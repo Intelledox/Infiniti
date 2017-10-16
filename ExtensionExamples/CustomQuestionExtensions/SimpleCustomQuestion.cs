@@ -56,7 +56,7 @@ namespace SampleCustomQuestionExtensions
             writer.Write("<input name=\"");
             writer.Write(controlPrefix);
             writer.Write("\" value=\"");
-            writer.Write(Intelledox.Common.HtmlParsing.Sanitize(props.GetAttributeString(_valueGuid) ?? ""));
+            writer.Write(WebUtility.HtmlEncode(props.GetAttributeString(_valueGuid) ?? ""));
             writer.Write("\" />");
         }
     }

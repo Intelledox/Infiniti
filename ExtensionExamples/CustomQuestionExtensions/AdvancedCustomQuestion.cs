@@ -93,13 +93,13 @@ namespace SampleCustomQuestionExtensions
             if (!string.IsNullOrEmpty(props.GetAttributeString(_maxLengthGuid)))
             {
                 writer.Write(" maxlength=\"");
-                writer.Write(Intelledox.Common.HtmlParsing.Sanitize(props.GetAttributeString(_maxLengthGuid)));
+                writer.Write(WebUtility.HtmlEncode(props.GetAttributeString(_maxLengthGuid)));
                 writer.Write("\"");
             }
             if (!string.IsNullOrEmpty(props.GetAttributeString(_valueGuid)))
             {
                 writer.Write(" value=\"");
-                writer.Write(Intelledox.Common.HtmlParsing.Sanitize(props.GetAttributeString(_valueGuid)));
+                writer.Write(WebUtility.HtmlEncode(props.GetAttributeString(_valueGuid)));
                 writer.Write("\"");
             }
             if (props.Question.IsRealtimeParentQuestion)

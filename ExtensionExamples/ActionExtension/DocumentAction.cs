@@ -34,16 +34,11 @@ namespace SampleActionExtensions
                         doc.DisplayName + doc.Extension;
 
                     using (var docStream = await properties.GetDocumentStreamAsync(doc))
-                    using (var destStream = new MemoryStream())
+                    // Write or send the document to a file, external service, etc
+                    using (FileStream file = new FileStream(Path.Combine("C:\\temp\\", fileName), FileMode.Create, FileAccess.Write))
                     {
-                        // Write or send the document to a file, external service, etc
-                        await docStream.CopyToAsync(destStream);
-
-                        using (FileStream file = new FileStream(Path.Combine("C:\\temp\\" + fileName), FileMode.Create, FileAccess.Write))
-                        {
-                            destStream.WriteTo(file);
-                        }
-                    }
+                        await docStream.CopyToAsync(file);
+                    }                    
                 }
             }
             catch (Exception ex)
