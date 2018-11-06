@@ -4,14 +4,18 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Generation
+namespace ClientApi
 {
     class Program
     {
-        private static string _serviceUrl = "http://server/produce/api/v1/client/";         // Infiniti Produce url
-        private static string _projectGroupGuid = "f88d902f-3023-4586-b589-28356ec5925e";   // Publish id of the form. Retrieve from Manage
-        private static string _demoUsername = "DemoUser";                                   // User that the generation will run as
-        private static string _demoPassword = "<DemoPasswordHere>";
+        private static string _serviceUrl = "http://server/Produce/api/v1/client/";                    // Infiniti Produce url
+        private static string _projectGroupGuid = "f88d902f-3023-4586-b589-28356ec5925e";              // Publish id of the form. Retrieve from Manage
+        private static string _projectGroupGuid_AnswerLabels = "74f3d62e-b2ad-4934-9b08-2feaf499c575"; // Sample form available on github 'Generate-AnswerLabels (NamedValuePairs)' 
+        private static string _projectGroupGuid_ProvidedData = "597ec154-d49c-421b-9232-a385782daae6"; // Sample form available on github 'Generate-ProvidedData (XML, JSON, CSV)' 
+
+        private static string _demoUsername = "admin";                                                 // User that the generation will run as
+        private static string _demoPassword = "Intelledox#1";
+        private static string _demoUserGuid = "cfaacf2c-a6c1-41e6-b6e0-3646da572904";                  // Hardwired here but can be sourced from login response
 
         static void Main(string[] args)
         {
@@ -20,22 +24,23 @@ namespace Generation
 
         static async Task MainAsync(string[] args)
         {
-            HttpClient client = await GetAuthenticatedClient();
-            await GenerateWithNoValues(client, _projectGroupGuid);
+            HttpClient client = null;
 
-            /*
-             * Other demonstration generation calls
-             * 
-             * await GenerateWithAnswerLabels(client, _projectGroupGuid);
-             * await GenerateWithProvidedData(client, _projectGroupGuid);
-             * await GenerateWithAnswerFile(client, _projectGroupGuid);
-             * await GenerateWithDelayedSchedule(client, _projectGroupGuid);
-             * await GenerateWithWorkflow(client, _projectGroupGuid);
-             * await GenerateWithPollingAndDownload(client, _projectGroupGuid);
-             */
+            //Login
+            client = await GetFormsAuthenticatedClient();
+            //client = await GetWindowsAuthenticatedClient();
+
+            //Generate
+            //await GenerateWithNoValues(client, _projectGroupGuid);
+            //await GenerateWithAnswerLabels(client, _projectGroupGuid_AnswerLabels);
+            //await GenerateWithProvidedData(client, _projectGroupGuid_ProvidedData);
+            //await GenerateWithAnswerFile(client, _projectGroupGuid_ProvidedData);
+            //await GenerateWithDelayedSchedule(client, _projectGroupGuid);
+            //await GenerateWithWorkflow(client, _projectGroupGuid);
+            //await GenerateWithPollingAndDownload(client, _projectGroupGuid);
         }
 
-        static async Task<HttpClient> GetAuthenticatedClient()
+        static async Task<HttpClient> GetFormsAuthenticatedClient()
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(_serviceUrl);
@@ -56,23 +61,42 @@ namespace Generation
             return client;
         }
 
+        static async Task<HttpClient> GetWindowsAuthenticatedClient()
+        {
+            HttpClient client = new HttpClient(new HttpClientHandler() { UseDefaultCredentials = true });
+            client.BaseAddress = new Uri(_serviceUrl);
+
+            HttpResponseMessage authResponse = await client.PostAsync("login/account", new StringContent(string.Empty));
+            authResponse.EnsureSuccessStatusCode();
+            JObject token = JObject.Parse(await authResponse.Content.ReadAsStringAsync());
+
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token["authorizationToken"].ToString());
+
+            return client;
+        }
+
         static async Task GenerateWithNoValues(HttpClient client, string projectGroupGuid)
         {
             // Generates a form passing no additional parameters. The form must be able to determine everything it needs to complete.
+            // Often used for forms that run regularly on a recurring basis
             HttpResponseMessage generateResponse = await client.PostAsync("generate/" + projectGroupGuid, new StringContent("{ }", Encoding.UTF8, "application/json"));
             generateResponse.EnsureSuccessStatusCode();
         }
 
         static async Task GenerateWithAnswerLabels(HttpClient client, string projectGroupGuid)
         {
-            // Generates a form passing answer file labels.
+            // Generates a form passing answer file labels (namedValuePairs)
             JObject generate = new JObject()
             {
                 {
                     "values", new JObject
                     {
                         { "LabelName1", "Value1" },
-                        { "LabelName2", "Value2" }
+                        { "LabelName2", "Value2" },
+                        { "username", "admin" },
+                        { "firstName", "randomFirst" },
+                        { "surname", "randomSurname" },
+                        { "transactionId", Guid.NewGuid() },
                     }
                 }
             };
@@ -83,8 +107,22 @@ namespace Generation
 
         static async Task GenerateWithProvidedData(HttpClient client, string projectGroupGuid)
         {
-            // Generates a form passing data source files.
-            JObject generate = new JObject()
+            // Generates a form passing data on the request
+
+            //Projects with one data source do not need to specify an Id (dataServiceGuid) for the data. 
+            var generateSingleDataSource = new JObject()
+                {
+                    { "data", new JArray()
+                        {
+                            new JObject{
+                                { "value", "<sampleData><transactionId>" + Guid.NewGuid().ToString() + "</transactionId><username>admin</username><firstName>sampleFirst</firstName><surname>sampleSurname</surname></sampleData>" },
+                            }
+                        }
+                    }
+                };
+
+            //Projects with multiple data sources require a dataServiceGuid to differentiate
+            JObject generateMultipleDataSource = new JObject()
             {
                 {
                     "data", new JArray
@@ -103,7 +141,7 @@ namespace Generation
                 }
             };
 
-            HttpResponseMessage generateResponse = await client.PostAsync("generate/" + projectGroupGuid, new StringContent(generate.ToString(), Encoding.UTF8, "application/json"));
+            HttpResponseMessage generateResponse = await client.PostAsync("generate/" + projectGroupGuid, new StringContent(generateSingleDataSource.ToString(), Encoding.UTF8, "application/json"));
             generateResponse.EnsureSuccessStatusCode();
         }
 
@@ -112,7 +150,7 @@ namespace Generation
             // Generates a form passing a pre-prepared answer file
             JObject generate = new JObject()
             {
-                { "answerFile", "<AnswerFile Version=\"2\"><ps><p pid=\"eb63fa10-aa77-4f0e-aae4-3fa512fd89fa\"><qs /></p></ps></AnswerFile>" }
+                { "answerFile", Helper.AnswerFileHelper.GetAnswerFile(projectGroupGuid, new System.Collections.Generic.Dictionary<Guid, string>() { { Guid.Empty, "<sampleData><username>admin</username><firstName>sampleFirst</firstName><surname>sampleSurname</surname></sampleData>" } }) }
             };
 
             HttpResponseMessage generateResponse = await client.PostAsync("generate/" + projectGroupGuid, new StringContent(generate.ToString(), Encoding.UTF8, "application/json"));
@@ -214,6 +252,7 @@ namespace Generation
 
                     JArray files = (JArray)resourceResult["files"];
 
+                    //resourceLocation will return the actual binary of the generated document
                     foreach (JObject file in files)
                     {
                         Console.Write(file["filename"]);

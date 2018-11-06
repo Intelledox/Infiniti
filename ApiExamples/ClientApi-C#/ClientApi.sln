@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generation", "Generation.csproj", "{7AE086CA-0FFF-4A5E-8AA5-871A4EB8C443}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApi", "ClientApi.csproj", "{7AE086CA-0FFF-4A5E-8AA5-871A4EB8C443}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

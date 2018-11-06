@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7AE086CA-0FFF-4A5E-8AA5-871A4EB8C443}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Generation</RootNamespace>
-    <AssemblyName>Generation</AssemblyName>
+    <RootNamespace>ClientApi</RootNamespace>
+    <AssemblyName>ClientApi</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\AnswerFileHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
