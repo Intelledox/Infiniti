@@ -13,9 +13,8 @@ namespace ClientApi
         private static string _projectGroupGuid_AnswerLabels = "74f3d62e-b2ad-4934-9b08-2feaf499c575"; // Sample form available on github 'Generate-AnswerLabels (NamedValuePairs)' 
         private static string _projectGroupGuid_ProvidedData = "597ec154-d49c-421b-9232-a385782daae6"; // Sample form available on github 'Generate-ProvidedData (XML, JSON, CSV)' 
 
-        private static string _demoUsername = "admin";                                                 // User that the generation will run as
-        private static string _demoPassword = "Intelledox#1";
-        private static string _demoUserGuid = "cfaacf2c-a6c1-41e6-b6e0-3646da572904";                  // Hardwired here but can be sourced from login response
+        private static string _demoUsername = "DemoUser";                                              // User that the clientApi will run as
+        private static string _demoPassword = "<DemoPasswordHere>";
 
         static void Main(string[] args)
         {
