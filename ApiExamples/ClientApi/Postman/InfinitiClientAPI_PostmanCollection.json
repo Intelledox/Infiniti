@@ -1,0 +1,1092 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Infiniti Client API",
+		"_postman_id": "02f10116-6a1f-76e6-6ac6-1fd00506bbf1",
+		"description": "Allows to perform Produce tasks related with workflow, forms, answerFiles, etc.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"description": "Folder for login",
+			"item": [
+				{
+					"name": "Forms Authentication",
+					"request": {
+						"url": "{{ProduceUrl}}/api/v1/client/login/forms",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"insertPassword\"\n}"
+            },
+						"description": "<br>\n\n##/login/forms\n\nThis method supports authenticating a user and retrieving a session token via Forms Authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "Windows Authentication",
+					"request": {
+						"url": "{{ProduceUrl}}//api/v1/client/login/account",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Host",
+								"value": "localhost",
+								"description": ""
+							},
+							{
+								"key": "Content-Length",
+								"value": 5,
+								"description": ""
+							},
+							{
+								"key": "X-Amz-Date",
+								"value": "20181105T010009Z",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "AWS4-HMAC-SHA256 Credential=/20181105/us-east-1/execute-api/aws4_request, SignedHeaders=accept;content-length;content-type;host;x-amz-date, Signature=babc34ca55da71ad1f25f571a924a2086a4de7ef4efec28e7c641d8a2e296102",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "Login"
+						},
+						"description": "<br>\n\n##/login/account\n\nThis method supports authenticating a user and retrieving a session token via Windows Authentication. For this type of authentication, there is no need to supply explicit username/password credentials since ASP.NET and IIS can automatically retrieve and validate the Windows username of the end-user who is currently logged on to the Windows operating system and authenticate them in a secure way."
+					},
+					"response": []
+				},
+				{
+					"name": "SAML Authentication",
+					"request": {
+						"url": "{{ProduceUrl}}/api/v1/client/login/samlredirect",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "<br>\n\n##/login/samlredirect\n\nThis method supports authenticating a user and retrieving a session token via SAML Authentication. Authentication has been setup to return a `302` SAML redirect to an IDP so users can enter their credentials, similar to the redirect flow that Produce executes. The caller also needs to handle any UI that the IDP might display. The end of the redirects is a request to `/login/cookietosession` that will return session information."
+					},
+					"response": []
+				},
+				{
+					"name": "Cookie Authentication",
+					"request": {
+						"url": "{{ProduceUrl}}/api/v1/client/login/cookietosession",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "Login"
+						},
+						"description": "<br>\n\n##/login/cookietosession\n\nThis method supports retrieving a session token via Authentication Cookie. This requires that the Manage or Produce cookies be sent with the request. The main scenarios are for use with the SAML redirect or UI within Produce."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "logoff",
+			"description": "Folder for logoff",
+			"item": [
+				{
+					"name": "Expire session token",
+					"request": {
+						"url": "{{ProduceUrl}}/api/v1/client/logoff",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Expire session token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "forms",
+			"description": "Folder for forms",
+			"item": [
+				{
+					"name": "Get available forms",
+					"request": {
+						"url": "{{ProduceUrl}}/api/v1/client/forms",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "<br>\n\n##/forms\n\nThis method supports retrieving a list of the available folders and projects that the current user has permissions to run."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "workflow",
+			"description": "Folder for workflow",
+			"item": [
+				{
+					"name": "Get available workflow items",
+					"request": {
+						"url": "{{ProduceUrl}}/api/v1/client/workflow",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "<br>\n\n##/workflow\n\nThis method supports retrieving list of the workflow tasks that are assigned to you or a group that you belong to. Items that assigned to a group have a boolean property indicating this as well as a flag to say whether you have it locked.\nDirectly assigned tasks can be cancelled via the `DELETE` verb. Whether this is successful depends on project design.\n\nLocked tasks can be unlocked via the `PATCH` verb.\n`id`, workflow state guid.\n\n`assignedDateTime`, time that the previous user assigned this task.\n\n`assignedBy`, user name of the assigning person.\n\n`assignedType`: `Group` if this is a group assigned task, otherwise `User`.\n \n`comment`, information left by the assigning person.\n\n`publishId`, id of the form to launch.\n\n`locked`: true if you have an exclusive lock on the group task.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Unlocks a group workflow task",
+					"request": {
+						"url": {
+							"raw": "{{ProduceUrl}}/api/v1/client/workflow/:id",
+							"host": [
+								"{{ProduceUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"workflow",
+								":id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "<br>\n\n##/workflow/{id}\n\nThis method supports unlocking a workflow task that are assigned a group that you belong to."
+					},
+					"response": []
+				},
+				{
+					"name": "Cancels a workflow task",
+					"request": {
+						"url": {
+							"raw": "{{ProduceUrl}}/api/v1/client/workflow/:id",
+							"host": [
+								"{{ProduceUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"workflow",
+								":id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "<br>\n\n##/workflow/{id}\n\nThis method supports canceling a workflow task that are assigned to you."
+					},
+					"response": []
+				},
+				{
+					"name": "Reassigns a workflow task to another user",
+					"request": {
+						"url": {
+							"raw": "{{ProduceUrl}}/api/v1/client/workflow/:id/reassign",
+							"host": [
+								"{{ProduceUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"workflow",
+								":id",
+								"reassign"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "<br>\n\n##/workflow/{id}/reassign\n\nThis method supports reassigning a workflow item that is currently directly assigned to you.\n\n`comment`, optional. Comment for the assignment to the next user.\n\n`assignToGuid`, optional. The user GUID to assign the next state to.\n\n`assignToName`, optional. The user name to assign the next state to.If both `assignToGuid` and `assignToName` are supplied then the GUID will be used. At least one of these properties must be supplied.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Returns a workflow to its previous state",
+					"request": {
+						"url": {
+							"raw": "{{ProduceUrl}}/api/v1/client/workflow/:id/revert",
+							"host": [
+								"{{ProduceUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"workflow",
+								":id",
+								"revert"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "answerfiles",
+			"description": "Folder for answerfiles",
+			"item": [
+				{
+					"name": "Get user's available answer files",
+					"request": {
+						"url": "{{ProduceUrl}}/api/v1/client/answerfiles",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "<br>\n\n##/answerfiles\n\nThis method supports retrieving a list of user's saved Answer Files. The Answer Files retrieved by this method have been saved by the end user from the Finish Page, after completing a form in Produce.\nBy default, a call to this method will return a list of all user's saved Answer Files. To make sure responses are easier to handle, client can request for sets of paginated items by passing these query parameters:\n\n`$skip`, skip this number of rows.\n\n`$top`,return this number of rows.\n\nBy doing this the response will include a `@nextLink` flag pointing to the next page of results."
+					},
+					"response": []
+				},
+				{
+					"name": "Creates an answer file",
+					"request": {
+						"url": "{{ProduceUrl}}/api/v1/client/answerfiles",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"saveAnswerFile\",\r\n  \"publishId\": \"597ec154-d49c-421b-9232-a385782daae6\",\r\n  \"answerXml\": \"<AnswerFile><HeaderInfo><TemplateInfo TemplateGroupId=\\\"597ec154-d49c-421b-9232-a385782daae6\\\" RunId=\\\"ebb61be5-d7de-44d2-b001-2ca2168a7259\\\" FirstLaunchTimeUtc=\\\"2018-11-05T03:07:24.7268609Z\\\" /> <UserInfo UserId=\\\"cfaacf2c-a6c1-41e6-b6e0-3646da572904\\\" /></HeaderInfo><ProvidedData> <Data Id=\\\"00000000-0000-0000-0000-000000000000\\\"><![CDATA[<sampleData><username>admin</username><firstName>sampleFirst</firstName><surname>sampleSurname</surname></sampleData>]]></Data></ProvidedData></AnswerFile>\"\r\n}"
+						},
+						"description": "<br>\n\n##/answerfiles\n\nThis method supports creating an Answer File. To make a request to this endpoint, a body of data will need to include these body parameters:\n\n`description`, title of the saved Answer File.\n\n`publishId`, unique Id of the published project.\n\n`answerXml`, Answer File XML."
+					},
+					"response": []
+				},
+				{
+					"name": "Get specific answer file",
+					"request": {
+						"url": {
+							"raw": "{{ProduceUrl}}/api/v1/client/answerfiles/:id",
+							"host": [
+								"{{ProduceUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"answerfiles",
+								":id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "<br>\n\n##/answerfiles/{id}\n\nThis method supports retrieving an Answer File's details, including its XML."
+					},
+					"response": []
+				},
+				{
+					"name": "Deletes an answer file",
+					"request": {
+						"url": {
+							"raw": "http:///api/v1/client/answerfiles/:id",
+							"host": [
+								"http:"
+							],
+							"port": "",
+							"path": [
+								"",
+								"",
+								"api",
+								"v1",
+								"client",
+								"answerfiles",
+								":id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "<br>\n\n##/answerfiles/{id}\n\nThis method supports deleting an Answer File."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "inprogressanswerfiles",
+			"description": "Folder for inprogressanswerfiles",
+			"item": [
+				{
+					"name": "Get a user's in-progress answer files",
+					"request": {
+						"url": "{{ProduceUrl}}/api/v1/client/inprogressanswerfiles",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "<br>\n\n##/inprogressanswerfiles\n\nThis method supports retrieving a list of user's in-progress Answer Files. The in-progress Answer Files retrieved by this method have been saved by the end user when a form is mid way through its execution cycle and an \"In-Progress Save\" is required.\nBy default, a call to this method will return a list of all user's in-progress Answer Files. To make sure responses are easier to handle, client can request for sets of paginated items by passing these query parameters:\n\n`$skip`, skip this number of rows.\n\n`$top`,return this number of rows.\n\nBy doing this the response will include a `@nextLink` flag pointing to the next page of results."
+					},
+					"response": []
+				},
+				{
+					"name": "Creates an in-progress answer file",
+					"request": {
+						"url": "{{ProduceUrl}}/api/v1/client/inprogressanswerfiles",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "<br>\n\n##/inprogressanswerfiles\n\nThis method supports creating an in-progress Answer File. To make a request to this endpoint, a body of data will need to include these body parameters:\n\n`description`, title of the in-progress Answer File.\n\n`publishId`, unique Id of the published project.\n\n`answerXml`, in-progress Answer File XML."
+					},
+					"response": []
+				},
+				{
+					"name": "Get specific in-progress answer file",
+					"request": {
+						"url": {
+							"raw": "{{ProduceUrl}}/api/v1/client/inprogressanswerfiles/:id",
+							"host": [
+								"{{ProduceUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"inprogressanswerfiles",
+								":id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "<br>\n\n##/inprogressanswerfiles/{id}\n\nThis method supports retrieving an in-progress Answer File's details, including its XML."
+					},
+					"response": []
+				},
+				{
+					"name": "Updates an in-progress answer file",
+					"request": {
+						"url": {
+							"raw": "{{ProduceUrl}}/api/v1/client/inprogressanswerfiles/:id",
+							"host": [
+								"{{ProduceUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"inprogressanswerfiles",
+								":id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "<br>\n\n##/inprogressanswerfiles/{id}\n\nThis method supports updating an in-progress Answer File. To make a request to this endpoint, a body of data will need to include these body parameters:\n\n`description`, title of the in-progress Answer File.\n\n`answerXml`, in-progress Answer File XML."
+					},
+					"response": []
+				},
+				{
+					"name": "Deletes an in-progress answer file",
+					"request": {
+						"url": {
+							"raw": "{{ProduceUrl}}/api/v1/client/inprogressanswerfiles/:id",
+							"host": [
+								"{{ProduceUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"inprogressanswerfiles",
+								":id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "<br>\n\n##/inprogressanswerfiles/{id}\n\nThis method supports deleting an in-progress Answer File."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "generate",
+			"description": "Folder for generate",
+			"item": [
+				{
+					"name": "Generates a form - NamedValuePairs",
+					"request": {
+						"url": "{{ProduceUrl}}/api/v1/client/generate/74f3d62e-b2ad-4934-9b08-2feaf499c575",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"values\": {\r\n    \"username\": \"admin\",\r\n    \"firstName\": \"randomFirst\",\r\n    \"surname\": \"randomSurname\",\r\n    \"transactionId\": \"a0ec6d91-16a4-4300-8673-bb5e8efe7251\"\r\n  }\r\n}"
+						},
+						"description": "<br>\n\n##/generate/{id}\n\nThis method supports running an Infiniti project in an automated non-UI fashion."
+					},
+					"response": []
+				},
+				{
+					"name": "Generates a form - Data",
+					"request": {
+						"url": "{{ProduceUrl}}/api/v1/client/generate/597ec154-d49c-421b-9232-a385782daae6",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"data\":[\r\n      {\r\n         \"value\":\"<sampleData><transactionId>EDF963B8-7B27-4D1D-86DE-49140202C0A3</transactionId><username>admin</username><firstName>sampleFirst</firstName><surname>sampleSurname</surname></sampleData>\"\r\n      }\r\n   ]\r\n}"
+						},
+						"description": "<br>\n\n##/generate/{id}\n\nThis method supports running an Infiniti project in an automated non-UI fashion."
+					},
+					"response": []
+				},
+				{
+					"name": "Generates a form - AnswerFile",
+					"request": {
+						"url": "{{ProduceUrl}}/api/v1/client/generate/597ec154-d49c-421b-9232-a385782daae6",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"answerFile\": \"<AnswerFile><HeaderInfo><TemplateInfo TemplateGroupId=\\\"597ec154-d49c-421b-9232-a385782daae6\\\" RunId=\\\"27cfb19b-e751-40f2-aa03-0376becaafe6\\\" FirstLaunchTimeUtc=\\\"2018-11-05T23:07:20.6258204Z\\\" /></HeaderInfo><ProvidedData><Data Id=\\\"00000000-0000-0000-0000-000000000000\\\"><![CDATA[<sampleData><username>admin</username><firstName>sampleFirst</firstName><surname>sampleSurname</surname></sampleData>]]></Data></ProvidedData></AnswerFile>\"\r\n}"
+						},
+						"description": "<br>\n\n##/generate/{id}\n\nThis method supports running an Infiniti project in an automated non-UI fashion."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "operations",
+			"description": "Folder for operations",
+			"item": [
+				{
+					"name": "Get resources state",
+					"request": {
+            "url": {
+              "raw": "{{ProduceUrl}}/api/v1/client/operations/:id",
+              "host": [
+                "{{ProduceUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "client",
+                "operations",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "<br>\n\n##/operations/{id}\n\nA resources state is a user addressable resource that tracks a long-running operation. The `GET` operation returns the resources state and any relevant extended information.\nThe following states are supported:\n`notStarted`\n\n`running`\n\n`succeeded`\n\n`failed`\n\nForms generations support an additional state\n\n`cancelled`\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete resources",
+					"request": {
+						"url": {
+							"raw": "{{ProduceUrl}}/api/v1/client/operations/:id",
+							"host": [
+								"{{ProduceUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"operations",
+								":id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "<br>\n\n##/operations/{id}\n\nOperations may support the `DELETE` action. For example, generations that are in the `notStarted` state can be deleted. Operations that cannot be deleted will return `405 Method Not Allowed`.\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "generatedoutput",
+			"description": "Folder for generatedoutput",
+			"item": [
+				{
+					"name": "Get generated outputs",
+					"request": {
+						"url": {
+							"raw": "{{ProduceUrl}}/api/v1/client/generatedoutput/6135f46f-7cf4-4421-87c7-7d3dc123e7cf/file/4abea708-4a1d-4662-842f-71f35d5f9621?extension=.docx",
+							"host": [
+								"{{ProduceUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"generatedoutput",
+								"6135f46f-7cf4-4421-87c7-7d3dc123e7cf",
+								"file",
+								"4abea708-4a1d-4662-842f-71f35d5f9621"
+							],
+							"query": [
+								{
+									"key": "extension",
+									"value": ".docx",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "<br>\n\n##/generatedoutput/{id}\n\nThis method supports retrieving a list of generated documents and their location. Once the locations of generated documents are obtained, subsequent calls to the location url (`resourceLocation` url) can be made to retrieve the generated documents binaries."
+					},
+					"response": []
+				},
+				{
+					"name": "Get generated output binaries",
+					"request": {
+						"url": {
+							"raw": "{{ProduceUrl}}/api/v1/client/generatedoutput/2aaa0a84-9cc0-4054-975d-6a7aad23c5e7/file/fdce80a3-bd22-45f4-9faf-8d624cf9b543?extension=.docx",
+							"host": [
+								"{{ProduceUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"generatedoutput",
+								"2aaa0a84-9cc0-4054-975d-6a7aad23c5e7",
+								"file",
+								"fdce80a3-bd22-45f4-9faf-8d624cf9b543"
+							],
+							"query": [
+								{
+									"key": "extension",
+									"value": ".docx",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{BearerToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "<br>\n\n##/generatedoutput/{id}/file/{fileid}\n\nReturns generated document binary."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
