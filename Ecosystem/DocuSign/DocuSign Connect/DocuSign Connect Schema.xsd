@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="DocuSignEnvelopeInformation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="EnvelopeStatus">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RecipientStatuses">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="RecipientStatus">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Type" type="xs:string" />
+                          <xs:element name="Email" type="xs:string" />
+                          <xs:element name="UserName" type="xs:string" />
+                          <xs:element name="RoutingOrder" type="xs:unsignedByte" />
+                          <xs:element name="Sent" type="xs:dateTime" />
+                          <xs:element minOccurs="0" name="Delivered" type="xs:dateTime" />
+                          <xs:element minOccurs="0" name="Signed" type="xs:dateTime" />
+                          <xs:element name="Status" type="xs:string" />
+                          <xs:element name="RecipientIPAddress" type="xs:string" />
+                          <xs:element name="CustomFields" />
+                          <xs:element minOccurs="0" name="TabStatuses">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element maxOccurs="unbounded" name="TabStatus">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="TabType" type="xs:string" />
+                                      <xs:element name="Status" type="xs:string" />
+                                      <xs:element name="XPosition" type="xs:unsignedShort" />
+                                      <xs:element name="YPosition" type="xs:unsignedShort" />
+                                      <xs:element name="TabLabel" type="xs:string" />
+                                      <xs:element name="TabName" type="xs:string" />
+                                      <xs:element name="TabValue" type="xs:string" />
+                                      <xs:element name="DocumentID" type="xs:unsignedByte" />
+                                      <xs:element name="PageNumber" type="xs:unsignedByte" />
+                                      <xs:element minOccurs="0" name="CustomTabType" type="xs:string" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="RecipientAttachment">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Attachment">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="Data" type="xs:string" />
+                                      <xs:element name="Label" type="xs:string" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="AccountStatus" type="xs:string" />
+                          <xs:element name="EsignAgreementInformation">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="AccountEsignId" type="xs:string" />
+                                <xs:element name="UserEsignId" type="xs:string" />
+                                <xs:element name="AgreementDate" type="xs:dateTime" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="FormData">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="xfdf">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="fields">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element maxOccurs="unbounded" name="field">
+                                              <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="value" type="xs:string" />
+                                                </xs:sequence>
+                                                <xs:attribute name="name" type="xs:string" use="required" />
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="RecipientId" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="TimeGenerated" type="xs:dateTime" />
+              <xs:element name="EnvelopeID" type="xs:string" />
+              <xs:element name="Subject" type="xs:string" />
+              <xs:element name="UserName" type="xs:string" />
+              <xs:element name="Email" type="xs:string" />
+              <xs:element name="Status" type="xs:string" />
+              <xs:element name="Created" type="xs:dateTime" />
+              <xs:element name="Sent" type="xs:dateTime" />
+              <xs:element name="Delivered" type="xs:dateTime" />
+              <xs:element name="Signed" type="xs:dateTime" />
+              <xs:element name="Completed" type="xs:dateTime" />
+              <xs:element name="ACStatus" type="xs:string" />
+              <xs:element name="ACStatusDate" type="xs:dateTime" />
+              <xs:element name="ACHolder" type="xs:string" />
+              <xs:element name="ACHolderEmail" type="xs:string" />
+              <xs:element name="ACHolderLocation" type="xs:string" />
+              <xs:element name="SigningLocation" type="xs:string" />
+              <xs:element name="SenderIPAddress" type="xs:string" />
+              <xs:element name="EnvelopePDFHash" />
+              <xs:element name="CustomFields">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="CustomField">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Name" type="xs:string" />
+                          <xs:element name="Show" type="xs:boolean" />
+                          <xs:element name="Required" type="xs:boolean" />
+                          <xs:element name="Value" type="xs:string" />
+                          <xs:element name="CustomFieldType" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="AutoNavigation" type="xs:boolean" />
+              <xs:element name="EnvelopeIdStamping" type="xs:boolean" />
+              <xs:element name="AuthoritativeCopy" type="xs:boolean" />
+              <xs:element name="DocumentStatuses">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="DocumentStatus">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ID" type="xs:unsignedByte" />
+                          <xs:element name="Name" type="xs:string" />
+                          <xs:element name="TemplateName" />
+                          <xs:element name="Sequence" type="xs:unsignedByte" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TimeZone" type="xs:string" />
+        <xs:element name="TimeZoneOffset" type="xs:byte" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
