@@ -4,14 +4,14 @@
         <RecipientStatuses>
             <RecipientStatus>
                 <Type>Signer</Type>
-                <Email>ZHMxNDUxNjM5MTU4MTAw@mailinator.com</Email>
+                <Email>yourEmail@mail.com</Email>
                 <UserName>Gene Davidson</UserName>
                 <RoutingOrder>1</RoutingOrder>
                 <Sent>2016-01-01T01:06:06.947</Sent>
                 <Delivered>2016-01-01T01:06:23.367</Delivered>
                 <Signed>2016-01-01T01:06:43.833</Signed>
                 <Status>Completed</Status>
-                <RecipientIPAddress>87.68.55.196</RecipientIPAddress>
+                <RecipientIPAddress>0.0.0.0</RecipientIPAddress>
                 <CustomFields />
                 <TabStatuses>
                     <TabStatus>
@@ -91,7 +91,7 @@
             </RecipientStatus>
             <RecipientStatus>
                 <Type>CarbonCopy</Type>
-                <Email>ZHMxNDUxNjM5MTU4MTAw@mailinator.com</Email>
+                <Email>yourmail@mail.com</Email>
                 <UserName>Paul Dupuis</UserName>
                 <RoutingOrder>2</RoutingOrder>
                 <Sent>2016-01-01T01:06:44.8</Sent>
@@ -111,7 +111,7 @@
         <EnvelopeID>7a5828cb-2fe2-4c30-aa19-330a24fe780e</EnvelopeID>
         <Subject>Please sign the NDA document</Subject>
         <UserName>Recipe Login</UserName>
-        <Email>sunny.le@kluger.com</Email>
+        <Email>yourmail@mail.com</Email>
         <Status>Completed</Status>
         <Created>2016-01-01T01:06:06.18</Created>
         <Sent>2016-01-01T01:06:44.863</Sent>
@@ -121,10 +121,10 @@
         <ACStatus>Original</ACStatus>
         <ACStatusDate>2016-01-01T01:06:06.18</ACStatusDate>
         <ACHolder>Recipe Login</ACHolder>
-        <ACHolderEmail>temp2+recipe@kluger.com</ACHolderEmail>
+        <ACHolderEmail>yourmail@mail.com</ACHolderEmail>
         <ACHolderLocation>DocuSign</ACHolderLocation>
         <SigningLocation>Online</SigningLocation>
-        <SenderIPAddress>54.145.219.211</SenderIPAddress>
+        <SenderIPAddress>0.0.0.0</SenderIPAddress>
         <EnvelopePDFHash />
         <CustomFields>
             <CustomField>
